@@ -1,0 +1,39 @@
+adityacaturputra@Adityas-MacBook-Air a433-microservices % sh build_push_image.sh 
+[+] Building 0.3s (9/9) FINISHED                                                                                                                   
+ => [internal] load build definition from Dockerfile                                                                                          0.0s
+ => => transferring dockerfile: 37B                                                                                                           0.0s
+ => [internal] load .dockerignore                                                                                                             0.0s
+ => => transferring context: 34B                                                                                                              0.0s
+ => [internal] load metadata for docker.io/library/node:14-alpine                                                                             0.0s
+ => [1/4] FROM docker.io/library/node:14-alpine                                                                                               0.0s
+ => [internal] load build context                                                                                                             0.2s
+ => => transferring context: 391.90kB                                                                                                         0.2s
+ => CACHED [2/4] WORKDIR /app                                                                                                                 0.0s
+ => CACHED [3/4] COPY . .                                                                                                                     0.0s
+ => CACHED [4/4] RUN npm install --production --unsafe-perm && npm run build                                                                  0.0s
+ => exporting to image                                                                                                                        0.0s
+ => => exporting layers                                                                                                                       0.0s
+ => => writing image sha256:13ef993759f6ce99a3f6560228de266698f5063d9223ae9862116543e3851172                                                  0.0s
+ => => naming to docker.io/library/item-app:v1                                                                                                0.0s
+
+Use 'docker scan' to run Snyk tests against images to find vulnerabilities and learn how to fix them
+REPOSITORY                                        TAG            IMAGE ID       CREATED          SIZE
+item-app                                          v1             13ef993759f6   40 seconds ago   150MB
+adityacaturputra/dicoding-devops-proyek-pertama   v1             6b903891bb74   6 hours ago      156MB
+redis/redis-stack-server                          latest         538ee403e89a   7 months ago     377MB
+node                                              14-alpine      d561716d42b6   12 months ago    119MB
+rabbitmq                                          3-management   513ab260d2cf   15 months ago    251MB
+mongo                                             3              09c00894eae7   2 years ago      422MB
+Login Succeeded
+
+Logging in with your password grants your terminal complete access to your account. 
+For better security, log in with a limited-privilege personal access token. Learn more at https://docs.docker.com/go/access-tokens/
+The push refers to repository [docker.io/adityacaturputra/dicoding-devops-proyek-pertama]
+f23bfc7d3ff7: Pushed 
+e3cf2747ce2c: Pushed 
+0c204bcbfce6: Layer already exists 
+23350eaaee74: Layer already exists 
+df8e43203da9: Layer already exists 
+92a6bff90f79: Layer already exists 
+26cbea5cba74: Layer already exists 
+v1: digest: sha256:4e6fc0fa1f9e83d98be8cba1851423b6e3dd6d72718f34a37e8f2b23fced1242 size: 1786
