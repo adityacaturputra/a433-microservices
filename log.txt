@@ -1,0 +1,16 @@
+adityacaturputra@Adityas-MacBook-Air a433-microservices % docker compose up -d
+[+] Running 5/5
+ ⠿ item-app Pulled                                                                                                                            9.1s
+   ⠿ c41833b44d91 Already exists                                                                                                              0.0s
+   ⠿ 683339ce8d6b Already exists                                                                                                              0.0s
+   ⠿ 4cf6a83c0e2a Already exists                                                                                                              0.0s
+   ⠿ 686172e40c38 Already exists                                                                                                              0.0s
+[+] Running 4/4
+ ⠿ Network a433-microservices_default       Created                                                                                           0.0s
+ ⠿ Volume "a433-microservices_app-db"       Created                                                                                           0.0s
+ ⠿ Container a433-microservices-item-db-1   Started                                                                                           0.4s
+ ⠿ Container a433-microservices-item-app-1  Started                                                                                           5.8s
+adityacaturputra@Adityas-MacBook-Air a433-microservices % docker ps                    
+CONTAINER ID   IMAGE            COMMAND                  CREATED          STATUS          PORTS                  NAMES
+5aeb0c2cbdbf   node:14-alpine   "docker-entrypoint.s…"   48 seconds ago   Up 42 seconds   0.0.0.0:80->8080/tcp   a433-microservices-item-app-1
+1219dea5a8c7   mongo:3          "docker-entrypoint.s…"   48 seconds ago   Up 47 seconds   27017/tcp              a433-microservices-item-db-1

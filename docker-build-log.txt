@@ -1,0 +1,83 @@
+adityacaturputra@Adityas-MacBook-Air a433-microservices % docker run --name item-db -v app-db:/data/db -d mongo:3 
+Unable to find image 'mongo:3' locally
+3: Pulling from library/mongo
+ea68ed57e24a: Pull complete 
+c12a5b59372b: Pull complete 
+a820d46388e3: Pull complete 
+e1af45b45bb6: Pull complete 
+1d0f5b64b9a8: Pull complete 
+e96b5958d6d6: Pull complete 
+46ee0eaefdfe: Pull complete 
+7dcf0613beed: Pull complete 
+314de618082c: Pull complete 
+38c764d07a25: Pull complete 
+5923a419767a: Pull complete 
+d422d3168824: Pull complete 
+028ad5b7f9fb: Pull complete 
+Digest: sha256:146c1fd999a660e697aac40bc6da842b005c7868232eb0b7d8996c8f3545b05d
+Status: Downloaded newer image for mongo:3
+ee6b1b954ee59fb894be0f7a35b69d775dd745d185a0c69c6aa53e919b85727e
+adityacaturputra@Adityas-MacBook-Air a433-microservices % docker ps
+CONTAINER ID   IMAGE     COMMAND                  CREATED          STATUS         PORTS       NAMES
+ee6b1b954ee5   mongo:3   "docker-entrypoint.s…"   11 seconds ago   Up 9 seconds   27017/tcp   item-db
+adityacaturputra@Adityas-MacBook-Air a433-microservices % docker network create app-network                      
+617156c9521f72d407c84b15e2b0940178170008652c54454026ab8e1e223acc
+adityacaturputra@Adityas-MacBook-Air a433-microservices % docker network ls 
+NETWORK ID     NAME          DRIVER    SCOPE
+617156c9521f   app-network   bridge    local
+df49e115d6fb   bridge        bridge    local
+33cf0f4d1bc8   host          host      local
+e5a143d9fd50   none          null      local
+adityacaturputra@Adityas-MacBook-Air a433-microservices % docker ps
+CONTAINER ID   IMAGE     COMMAND                  CREATED         STATUS         PORTS       NAMES
+ee6b1b954ee5   mongo:3   "docker-entrypoint.s…"   7 minutes ago   Up 7 minutes   27017/tcp   item-db
+adityacaturputra@Adityas-MacBook-Air a433-microservices % docker rm -f item-db 
+item-db
+adityacaturputra@Adityas-MacBook-Air a433-microservices % docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+adityacaturputra@Adityas-MacBook-Air a433-microservices % docker run --name item-db --network app-network --network-alias mongo-network -v app-db:/data/db -d mongo:3
+29605732bc9528e0b08dd3c73f77f1a17972101771bcb7b58f8182a6ce15b1f9
+
+
+adityacaturputra@Adityas-MacBook-Air a433-microservices % docker build -t item-app:v1 .
+[+] Building 130.1s (9/9) FINISHED                                                                                                                 
+ => [internal] load build definition from Dockerfile                                                                                          0.0s
+ => => transferring dockerfile: 222B                                                                                                          0.0s
+ => [internal] load .dockerignore                                                                                                             0.0s
+ => => transferring context: 88B                                                                                                              0.0s
+ => [internal] load metadata for docker.io/library/node:14-alpine                                                                             4.9s
+ => [internal] load build context                                                                                                             0.1s
+ => => transferring context: 2.96MB                                                                                                           0.1s
+ => [1/4] FROM docker.io/library/node:14-alpine@sha256:434215b487a329c9e867202ff89e704d3a75e554822e07f3e0c0f9e606121b33                      92.9s
+ => => resolve docker.io/library/node:14-alpine@sha256:434215b487a329c9e867202ff89e704d3a75e554822e07f3e0c0f9e606121b33                       0.0s
+ => => sha256:686172e40c38722891b4004f55f6447548c8367968ac523a612591e0d92f9db3 447B / 447B                                                    1.7s
+ => => sha256:434215b487a329c9e867202ff89e704d3a75e554822e07f3e0c0f9e606121b33 1.43kB / 1.43kB                                                0.0s
+ => => sha256:3380ed827b250d2db2bd38c15f090af2b303b3c9ebb42f5927cb5b9adeea7a6e 1.16kB / 1.16kB                                                0.0s
+ => => sha256:d561716d42b6a03639723c382c62977347ed62f13925e836614583253308e6c3 6.45kB / 6.45kB                                                0.0s
+ => => sha256:683339ce8d6b9be2ca150a8de67b895e20ea5594b91d3911c95b0b8fea3e314c 36.99MB / 36.99MB                                             92.1s
+ => => sha256:4cf6a83c0e2af3c780abcda02cc33f9e812fdcb40b610ed1838281cc9ab94ec8 2.43MB / 2.43MB                                               20.1s
+ => => extracting sha256:683339ce8d6b9be2ca150a8de67b895e20ea5594b91d3911c95b0b8fea3e314c                                                     0.6s
+ => => extracting sha256:4cf6a83c0e2af3c780abcda02cc33f9e812fdcb40b610ed1838281cc9ab94ec8                                                     0.1s
+ => => extracting sha256:686172e40c38722891b4004f55f6447548c8367968ac523a612591e0d92f9db3                                                     0.0s
+ => [2/4] WORKDIR /app                                                                                                                        0.3s
+ => [3/4] COPY . .                                                                                                                            0.0s
+ => [4/4] RUN npm install --production --unsafe-perm && npm run build                                                                        31.6s
+ => exporting to image                                                                                                                        0.3s
+ => => exporting layers                                                                                                                       0.3s
+ => => writing image sha256:6b903891bb74a72f1d8961060fd1a7875955182e1e845d6ba9afe40363e5673c                                                  0.0s
+ => => naming to docker.io/library/item-app:v1                                                                                                0.0s
+
+adityacaturputra@Adityas-MacBook-Air a433-microservices % docker run -dp 8080:8080 --name item-app --network app-network item-app:v1
+b044813c8f1667ea6844235de98073a9e8fcca7036beeeddf238215b90893e9a
+adityacaturputra@Adityas-MacBook-Air a433-microservices % docker ps                                                                 
+CONTAINER ID   IMAGE         COMMAND                  CREATED         STATUS         PORTS                    NAMES
+b044813c8f16   item-app:v1   "docker-entrypoint.s…"   8 seconds ago   Up 7 seconds   0.0.0.0:8080->8080/tcp   item-app
+29605732bc95   mongo:3       "docker-entrypoint.s…"   6 minutes ago   Up 6 minutes   27017/tcp                item-db
+
+adityacaturputra@Adityas-MacBook-Air a433-microservices % docker logs item-app   
+
+> docker-software-delivery@1.0.0 start /app
+> node ./bin/www
+
+NODE_ENV: production
+Connected to database

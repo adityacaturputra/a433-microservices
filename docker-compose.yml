@@ -1,0 +1,44 @@
+# menggunakan schema version "3.7" dari Docker Compose
+version: "3.7"
+
+services:
+  # pendefinisian service aplikasi
+  item-app:
+    # base image dari node:14-alpine
+    image: node:14-alpine
+
+    # command yang diperlukan untuk ketika akan menjalankan service
+    command: sh -c "npm install --production --unsafe-perm && npm run build && npm start"
+
+    # mappingan port yang terekspose dari container (8080) ke port (80)
+    ports:
+      - 80:8080
+
+    # pendefinisian working directory
+    working_dir: /app
+
+    # pendefinisian volume yang digunakan
+    volumes:
+      - ./:/app
+
+    # pendefinisian env variable
+    environment:
+      NODE_ENV: production
+
+      DB_HOST: item-db
+
+    # restart policy
+    restart: on-failure:5
+
+  # pendefinisian service db
+  item-db:
+    # base image db dari mongo:3
+    image: mongo:3
+
+    # pendefinisan volume agar db non volatile ketika direstart
+    volumes:
+      - app-db:/data/db
+
+volumes:
+  # pendefinisian volumen
+  app-db:
