@@ -13,8 +13,8 @@ ENV NODE_ENV=production DB_HOST=item-db
 # execute command pada saat pembuatan images
 RUN npm install --production --unsafe-perm && npm run build
 
-# execute command pada saat running images menjadikan container
-CMD ["npm", "start"]
-
 # expose port ke 8080
 EXPOSE 8080
+
+# execute command pada saat running images menjadikan container
+CMD ["npm", "start"]
