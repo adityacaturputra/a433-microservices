@@ -22,6 +22,8 @@ services:
 
     # restart policy
     restart: "always"
+    depends_on:
+      - item-db
 
 volumes:
   # pendefinisian volumen
