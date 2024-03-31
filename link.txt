@@ -1,1 +1,1 @@
-https://hub.docker.com/repository/docker/adityacaturputra/dicoding-devops-proyek-pertama
+https://hub.docker.com/repository/docker/adityacaturputra/item-app

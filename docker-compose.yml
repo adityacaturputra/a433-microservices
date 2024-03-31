@@ -2,6 +2,15 @@
 version: "3.7"
 
 services:
+  # pendefinisian service db
+  item-db:
+    # base image db dari mongo:3
+    image: mongo:3
+
+    # pendefinisan volume agar db non volatile ketika direstart
+    volumes:
+      - app-db:/data/db
+
   # pendefinisian service aplikasi
   item-app:
     # base image dari item-app docker hub
@@ -11,21 +20,8 @@ services:
     ports:
       - 80:8080
 
-    # pendefinisian volume yang digunakan
-    volumes:
-      - ./:/app
-
     # restart policy
-    restart: on-failure:5
-
-  # pendefinisian service db
-  item-db:
-    # base image db dari mongo:3
-    image: mongo:3
-
-    # pendefinisan volume agar db non volatile ketika direstart
-    volumes:
-      - app-db:/data/db
+    restart: "always"
 
 volumes:
   # pendefinisian volumen
