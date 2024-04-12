@@ -1,5 +1,5 @@
 # Perintah untuk membuat Docker image dari Dockerfile yang telah dibuat, dengan nama image item-app, dan memiliki tag v1.
-docker build -t karsajobs:latest .
+docker build --platform="linux/amd64" -t karsajobs:latest .
 # Melihat daftar image di lokal.
 docker images
 # Mengubah nama image agar sesuai dengan format Docker Hub.
